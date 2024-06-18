@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "698278671750",
+    "project_id": "thecalendar-b2db9",
+    "storage_bucket": "thecalendar-b2db9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698278671750:android:d3815bc5fc29d28411a807",
+        "android_client_info": {
+          "package_name": "com.example.thecalendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698278671750-vpbcgh9ql87ihi4cd60qg5dvoh3vsoqe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.thecalendar",
+            "certificate_hash": "026ff236bcbb510ab515995c33c8d1f7779c4abf"
+          }
+        },
+        {
+          "client_id": "698278671750-a7dg2gmr80jc4mkbsovr0rdjf3qfp597.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7erJAs2hUlV3rVLcdU8H3DZ6tuIsjXQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698278671750-a7dg2gmr80jc4mkbsovr0rdjf3qfp597.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
