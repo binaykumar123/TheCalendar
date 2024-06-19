@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="com.example.thecalendar.calendar.ui.calendarView.CalendarViewFragment"
+        android:name="com.example.thecalendar.calendar.calendarView.ui.fragments.CalendarViewFragment"
         android:label="CalendarFragment"
         tools:layout="@layout/fragment_calender_view">
 
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/eventsFragment"
-        android:name="com.example.thecalendar.calendar.ui.calendarEvents.EventFragment"
+        android:name="com.example.thecalendar.calendar.events.ui.fragments.EventFragment"
         android:label="EventsFragment"
         tools:layout="@layout/fragment_events">
 
@@ -51,7 +51,7 @@
 
     <fragment
         android:id="@+id/addEventFragment"
-        android:name="com.example.thecalendar.calendar.ui.calendarEvents.AddEventFragment"
+        android:name="com.example.thecalendar.calendar.events.ui.fragments.AddEventFragment"
         android:label="AddEventFragment"
         tools:layout="@layout/fragment_add_event">
         <argument

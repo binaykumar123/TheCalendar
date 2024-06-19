@@ -24,13 +24,17 @@ object DateUtils {
         }"
     }
 
-    fun convertDateTimeToDateString(dateTime: DateTime): String {
+    fun convertDateTimeToDateString(dateTime: DateTime?): String {
+        if (dateTime == null)
+            return ""
         val date = Date(dateTime.value)
         val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
         return dateFormat.format(date)
     }
 
-    fun convertDateTimeToTimeString(dateTime: DateTime): String {
+    fun convertDateTimeToTimeString(dateTime: DateTime?): String {
+        if (dateTime == null)
+            return ""
         val date = Date(dateTime.value)
         val timeFormat = SimpleDateFormat("hh:mma", Locale.getDefault())
         return timeFormat.format(date).replace("AM", "AM").replace("PM", "PM")
@@ -43,7 +47,7 @@ object DateUtils {
     }
 
     fun isCurrentDay(timestamp: Long?): Boolean {
-        if(timestamp == null){
+        if (timestamp == null) {
             return false
         }
         val calendar = Calendar.getInstance()
