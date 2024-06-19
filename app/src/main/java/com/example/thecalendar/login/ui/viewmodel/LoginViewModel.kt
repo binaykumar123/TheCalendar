@@ -8,6 +8,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.example.thecalendar.auth.authHandler.AuthStatus
 import com.example.thecalendar.auth.authHandler.IAuthHandler
+import com.example.thecalendar.core.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -16,9 +17,6 @@ class LoginViewModel @Inject constructor(
     private val iAuthHandler: IAuthHandler
 ) : ViewModel() {
 
-    companion object {
-        private const val RC_SIGN_IN = 1001
-    }
 
     private var _authStatusLiveData = MediatorLiveData<AuthStatus>()
     val authStatusLiveData: LiveData<AuthStatus>
@@ -45,7 +43,7 @@ class LoginViewModel @Inject constructor(
         data: Intent?,
         activity: Activity
     ) {
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == Constants.RC_AUTH) {
             iAuthHandler.onLoginActivityResult(data, activity)
         }
     }

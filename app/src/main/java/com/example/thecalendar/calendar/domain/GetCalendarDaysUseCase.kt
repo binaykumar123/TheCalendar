@@ -5,6 +5,7 @@ import com.example.thecalendar.calendar.data.ICalendarRepository
 import com.example.thecalendar.calendar.ui.DateItem
 import com.example.thecalendar.calendar.ui.DayItem
 import com.example.thecalendar.calendar.ui.uiModels.ParcelableDateTime
+import com.example.thecalendar.core.utils.DateUtils
 import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.model.Event
 import java.util.Calendar
@@ -26,29 +27,19 @@ class GetCalendarDaysUseCase @Inject constructor(
         val dates = getCalendarDateForGivenMonth(calendar)
         val events = iCalendarRepository.getCalendarEvents()
         val eventsByDate: Map<String, List<Event>> =
-            events.filter { it.start.dateTime != null }.groupBy { getDayItem(it.start.dateTime) }
-
-        Log.d("TAG", "getCalendarDaysForMonth:  eventsByDate ${eventsByDate.size}")
+            events.filter { it.start.dateTime != null }
+                .groupBy { DateUtils.getDayItem(it.start.dateTime) }
 
         return dates.map { date ->
-            val dateEvents = eventsByDate[getDayItem(date)] ?: emptyList()
+            val dateEvents = eventsByDate[DateUtils.getDayItem(date)] ?: emptyList()
             DateItem(
                 dateTime = date,
                 events = dateEvents,
-                displayDate = extractDayOfMonth(date)
+                displayDate = DateUtils.extractDayOfMonth(date)
             )
         }
     }
 
-    private fun getDayItem(dateTime: DateTime): String {
-        val calendar = Calendar.getInstance()
-        calendar.time = Date(dateTime.value)
-        return "${calendar.get(Calendar.DAY_OF_MONTH)}_${calendar.get(Calendar.MONTH)}_${
-            calendar.get(
-                Calendar.YEAR
-            )
-        }"
-    }
 
     private fun getCalendarDateForGivenMonth(calendar: Calendar): List<DateTime> {
         val daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
@@ -60,9 +51,4 @@ class GetCalendarDaysUseCase @Inject constructor(
         return dates
     }
 
-    private fun extractDayOfMonth(date: DateTime): Int {
-        val calendar = Calendar.getInstance()
-        calendar.time = Date(date.value)
-        return calendar.get(Calendar.DAY_OF_MONTH)
-    }
 }

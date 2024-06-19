@@ -1,6 +1,7 @@
 package com.example.thecalendar.calendar.data
 
 import androidx.fragment.app.Fragment
+import com.example.thecalendar.calendar.data.models.EventCreationRequest
 import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.model.Event
 import javax.inject.Inject
@@ -24,6 +25,11 @@ class CalendarRepository @Inject constructor(
         val events = iGoogleCalendarHelper.getEvents()
         saveCalendarEvents(events)
         return events
+    }
+
+    override suspend fun createCalendarEvent(creationRequest: EventCreationRequest) {
+        iGoogleCalendarHelper.createEvent(creationRequest)
+        fetchAllCalendarEventsFromRemote()
     }
 
     private fun saveCalendarEvents(events: List<Event>) {

@@ -6,6 +6,7 @@ import android.content.res.Resources
 import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.thecalendar.R
+import com.example.thecalendar.core.utils.Constants
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -18,11 +19,6 @@ class GoogleSignInHandler @Inject constructor(
 
     private lateinit var googleSignInClient: GoogleSignInClient
 
-    companion object {
-        private const val RC_SIGN_IN = 1001
-    }
-
-
     override fun initAuth(activity: Activity) {
         val signInOptions = createGoogleSignInOptions()
         googleSignInClient = GoogleSignIn.getClient(activity, signInOptions)
@@ -30,7 +26,7 @@ class GoogleSignInHandler @Inject constructor(
 
     override fun signIn(fragment: Fragment) {
         val signInIntent = googleSignInClient.signInIntent
-        fragment.startActivityForResult(signInIntent, RC_SIGN_IN)
+        fragment.startActivityForResult(signInIntent, Constants.RC_AUTH)
     }
 
     override fun onLoginActivityResult(data: Intent?): String? {
@@ -40,7 +36,6 @@ class GoogleSignInHandler @Inject constructor(
             return account.idToken
         } catch (e: ApiException) {
             Log.e("TAG", "onLoginActivityResult: failed : ${e.message}")
-           // Toast.makeText(requireContext(), "Sign-in failed.", Toast.LENGTH_SHORT).show()
         }
         return null
     }

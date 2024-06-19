@@ -6,17 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.thecalendar.R
 import com.example.thecalendar.calendar.ui.DateItem
 import com.example.thecalendar.calendar.ui.adapters.CalenderViewAdapter
 import com.example.thecalendar.calendar.ui.uiModels.CalendarDataState
 import com.example.thecalendar.calendar.ui.viewmodels.CalenderViewViewModel
+import com.example.thecalendar.core.utils.Constants
 import com.example.thecalendar.databinding.FragmentCalenderViewBinding
 import com.google.api.client.util.DateTime
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,9 +42,6 @@ class CalendarViewFragment : Fragment() {
         setObservers()
         fetchCalendarDates()
         setClickListeners()
-        binding.btnFetch.setOnClickListener {
-            fetchCalendarDates()
-        }
     }
 
     private fun initRecyclerView() {
@@ -61,16 +57,24 @@ class CalendarViewFragment : Fragment() {
             viewModel.getMonthDisplayName().also {
                 binding.tvMonthName.text = it
             }
-            if (it is CalendarDataState.Success) {
-                toggleLoader(false)
-                calendarViewAdapter.addItems(it.days) {
-                    onDateClick(it)
+            when (it) {
+                is CalendarDataState.Success -> {
+                    toggleLoader(false)
+                    calendarViewAdapter.addItems(it.days) {
+                        onDateClick(it)
+                    }
                 }
-            } else if (it is CalendarDataState.Error) {
-                toggleLoader(false)
-                Toast.makeText(requireContext(), "Something went wrong!", Toast.LENGTH_SHORT).show()
-            } else {
-                toggleLoader(true)
+
+                is CalendarDataState.Error -> {
+                    toggleLoader(false)
+                    Toast.makeText(requireContext(), "Something went wrong!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                else -> {
+
+                    toggleLoader(true)
+                }
             }
         }
     }
@@ -82,18 +86,6 @@ class CalendarViewFragment : Fragment() {
         }
     }
 
-
-    fun getDayAndMonth(dateTime: DateTime): Triple<Int, Int, Int> {
-        val date = Date(dateTime.value)
-        val calendar = Calendar.getInstance()
-        calendar.time = date
-
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-        val month = calendar.get(Calendar.MONTH)
-        val year = calendar.get(Calendar.YEAR)
-
-        return Triple(day, month, year)
-    }
 
     private fun toggleLoader(show: Boolean) {
         binding.loader.isVisible = show
@@ -116,7 +108,7 @@ class CalendarViewFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 1001) {
+        if (requestCode == Constants.RC_AUTH) {
             viewModel.fetchCalendarDates(this)
         }
     }

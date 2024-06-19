@@ -8,9 +8,11 @@ import com.example.thecalendar.calendar.data.ICalendarLocalDataSource
 import com.example.thecalendar.calendar.data.ICalendarRepository
 import com.example.thecalendar.calendar.data.IGoogleCalendarHelper
 import com.example.thecalendar.calendar.data.IGoogleCredentialsHelper
+import com.example.thecalendar.calendar.domain.CreateEventUseCase
 import com.example.thecalendar.calendar.domain.FetchAndSaveCalenderEventsUseCase
 import com.example.thecalendar.calendar.domain.FetchDayEventsUseCase
 import com.example.thecalendar.calendar.domain.GetCalendarDaysUseCase
+import com.example.thecalendar.calendar.domain.ICreateEventUseCase
 import com.example.thecalendar.calendar.domain.IFetchAndSaveCalenderEventsUseCase
 import com.example.thecalendar.calendar.domain.IFetchDayEventsUseCase
 import com.example.thecalendar.calendar.domain.IGetCalendarDaysUseCase
@@ -33,6 +35,9 @@ abstract class CalendarViewModule {
     @Binds
     abstract fun provideFetchDayEventsUseCase(fetchDayEventsUseCase: FetchDayEventsUseCase): IFetchDayEventsUseCase
 
+    @Binds
+    abstract fun provideCreateEventUseCase(createEventUseCase: CreateEventUseCase): ICreateEventUseCase
+
 
     @Binds
     @Singleton
@@ -45,5 +50,6 @@ abstract class CalendarViewModule {
     @Binds
     @Singleton
     abstract fun provideCalendarRepository(calendarRepository: CalendarRepository): ICalendarRepository
+
 
 }

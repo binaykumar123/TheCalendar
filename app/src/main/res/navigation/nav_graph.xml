@@ -26,13 +26,34 @@
             android:id="@+id/action_calendarFragment_to_eventsFragment"
             app:destination="@id/eventsFragment" />
 
+        <action
+            android:id="@+id/action_calendarFragment_to_addEventFragment"
+            app:destination="@id/addEventFragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.example.thecalendar.calendar.ui.calendarEvents.EventFragment"
         android:label="EventsFragment"
-        tools:layout="@layout/fragment_events" >
+        tools:layout="@layout/fragment_events">
+
+        <action
+            android:id="@+id/action_eventsFragment_to_addEventFragment"
+            app:destination="@id/addEventFragment" />
+
+        <argument
+            android:name="timeStamp"
+            app:argType="long" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/addEventFragment"
+        android:name="com.example.thecalendar.calendar.ui.calendarEvents.AddEventFragment"
+        android:label="AddEventFragment"
+        tools:layout="@layout/fragment_add_event">
         <argument
             android:name="timeStamp"
             app:argType="long" />

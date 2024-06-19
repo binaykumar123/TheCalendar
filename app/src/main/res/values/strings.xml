@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TheCalendar</string>
     <string name="default_web_client_id">451763372543-t5on7jpthn22kr7mqo9rhat6nj76qt47.apps.googleusercontent.com</string>
+    <string name="events">Events</string>
+    <string name="add_event">Add Event</string>
+    <string name="date">Date</string>
 </resources>

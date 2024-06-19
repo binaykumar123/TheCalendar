@@ -10,6 +10,8 @@ import com.example.thecalendar.calendar.domain.IFetchAndSaveCalenderEventsUseCas
 import com.example.thecalendar.calendar.domain.IGetCalendarDaysUseCase
 import com.example.thecalendar.calendar.ui.DateItem
 import com.example.thecalendar.calendar.ui.uiModels.CalendarDataState
+import com.example.thecalendar.core.utils.Constants
+import com.example.thecalendar.core.utils.DateUtils
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -61,14 +63,19 @@ class CalenderViewViewModel @Inject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 val items = iGetCalendarDaysUseCase.getCalendarDaysForMonth(yearToShow, monthToShow)
                     .toMutableList()
-                for (i in 0 until getFirstDayIndex()) {
-                    items.add(0, DateItem(isDummyDay = true))
-                }
-                _dateItemsList.postValue(CalendarDataState.Success(items))
+                addDummyDaysAndPost(items)
             }
         } catch (e: UserRecoverableAuthIOException) {
-            fragment.startActivityForResult(e.intent, 1001)
+            fragment.startActivityForResult(e.intent, Constants.RC_AUTH)
         }
+    }
+
+    private fun addDummyDaysAndPost(items: MutableList<DateItem>) {
+        for (i in 0 until getFirstDayIndex()) {
+            items.add(0, DateItem(isDummyDay = true))
+        }
+
+        _dateItemsList.postValue(CalendarDataState.Success(items))
     }
 
     fun increaseMonth(fragment: Fragment) {

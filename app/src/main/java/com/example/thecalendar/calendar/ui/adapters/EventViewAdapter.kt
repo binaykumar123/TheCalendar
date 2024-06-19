@@ -3,6 +3,7 @@ package com.example.thecalendar.calendar.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.thecalendar.core.utils.DateUtils
 import com.example.thecalendar.databinding.ItemEventBinding
 import com.google.api.services.calendar.model.Event
 
@@ -33,12 +34,14 @@ class EventAdapter() :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(event: Event) {
+            val startTime = DateUtils.convertDateTimeToTimeString(event.start.dateTime)
+            val endTime = DateUtils.convertDateTimeToTimeString(event.end.dateTime)
             binding.apply {
                 tvTitle.text = event.summary
-                tvDate.text = event.start.dateTime.toStringRfc3339()
+                tvDate.text = DateUtils.convertDateTimeToDateString(event.start.dateTime)
+                "$startTime - $endTime".also { tvTime.text = it }
                 tvDescription.text = event.description
             }
-
         }
     }
 }
