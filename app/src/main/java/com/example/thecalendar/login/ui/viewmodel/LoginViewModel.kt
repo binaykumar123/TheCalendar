@@ -17,7 +17,7 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
 
     companion object {
-        private const val RC_SIGN_IN = 9001
+        private const val RC_SIGN_IN = 1001
     }
 
     private var _authStatusLiveData = MediatorLiveData<AuthStatus>()

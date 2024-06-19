@@ -62,7 +62,9 @@ class LoginFragment : Fragment() {
         when (authStatus) {
             is AuthStatus.LoginError -> onLoginError()
             is AuthStatus.LoginSuccessful -> onLoginSuccessful(authStatus.user)
-            else -> {}
+            else -> {
+
+            }
         }
     }
 
@@ -92,4 +94,6 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_calendarFragment)
         }
     }
+
+    private fun showLoader(){}
 }

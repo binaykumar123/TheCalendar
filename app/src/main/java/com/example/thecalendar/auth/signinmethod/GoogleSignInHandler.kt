@@ -19,7 +19,7 @@ class GoogleSignInHandler @Inject constructor(
     private lateinit var googleSignInClient: GoogleSignInClient
 
     companion object {
-        private const val RC_SIGN_IN = 9001
+        private const val RC_SIGN_IN = 1001
     }
 
 
